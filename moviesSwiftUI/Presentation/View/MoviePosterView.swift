@@ -1,7 +1,8 @@
-// Presentation/Views/MoviePosterView.swift
+import SwiftUI
+
 struct MoviePosterView: View {
     let movie: Movie
-    private let posterBaseURL = "https://image.tmdb.org/t/p/w342"  // w342 para grid
+    private let posterBaseURL = "https://image.tmdb.org/t/p/w342" 
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
