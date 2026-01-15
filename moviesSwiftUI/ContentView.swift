@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Foundation
 
-struct ContentView: View {
-
+struct RootView: View {
+    @AppStorage("has_onboarded") private var hasOnboarded = false
+    @EnvironmentObject private var appSettings: AppSettings
+    
     var body: some View {
-        
-        MoviesGridView() 
+        if hasOnboarded {
+            MoviesGridView()
+        } else {
+            
+            OnboardingSettingsView()
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }

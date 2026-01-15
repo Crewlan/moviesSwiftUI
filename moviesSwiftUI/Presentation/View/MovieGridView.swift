@@ -9,7 +9,7 @@ struct MoviesGridView: View {
                 if viewModel.isLoading && viewModel.movies.isEmpty {
                     VStack(spacing: 12) {
                         ProgressView("Carregando...")
-                        Text("Buscando filmes populares")
+                        Text("Buscando filmes recentes")
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -46,7 +46,7 @@ struct MoviesGridView: View {
                     }
                 }
             }
-            .navigationTitle("Filmes Populares")
+            .navigationTitle("Filmes Recentes")
         }
         .task {
             await viewModel.loadMovies()

@@ -48,7 +48,7 @@ class TMDBAPIService {
         if !apiKey.isEmpty { return }
         
         
-        let status = try await remoteConfig.fetchAndActivate()
+
         apiKey = remoteConfig.configValue(forKey: "tmdb_api_key").stringValue
         
         
@@ -103,7 +103,6 @@ class TMDBAPIService {
             throw APIError.serverError(statusCode: httpResponse.statusCode,  errorData)
         }
         
-        let responseString = String(data: data, encoding: .utf8) ?? "Decode fail"
         
         
         let decoder = JSONDecoder()
