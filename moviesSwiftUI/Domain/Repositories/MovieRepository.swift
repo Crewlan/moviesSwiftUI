@@ -1,7 +1,6 @@
-protocol MovieRepository {
-    func fetchPopular(page: Int) async throws -> MovieList
-    func search(query: String, page: Int) async throws -> MovieList
-    func fetchTopRated(page: Int) async throws -> MovieList
-    func toggleFavorite(movie: Movie) async throws -> Movie
-    func getFavorites() async throws -> [Movie]
+import Foundation
+
+protocol MovieRepository{
+    func discoverMovies(page: Int) async throws -> MoviesOrTvsResponse
+    func discoverMoviesNextPage() async throws -> MoviesOrTvsResponse
 }
