@@ -48,7 +48,7 @@ class TMDBAPIService {
         if !apiKey.isEmpty { return }
         
         
-
+        
         apiKey = remoteConfig.configValue(forKey: "tmdb_api_key").stringValue
         
         
@@ -60,15 +60,80 @@ class TMDBAPIService {
         
     }
     
-    func discoverMovies(page: Int) async throws -> MoviesResponse {
+    func discoverMovies(page: Int) async throws -> MoviesOrTvsResponse {
         try await ensureAPIKey()
         
         let base = URL(string: "\(baseURL)/discover/movie")!
         var components = URLComponents(url: base, resolvingAgainstBaseURL: true)!
+        
+        
+        let userLanguage = AppSettings.shared.selectedLanguage
+        let tmdbLanguage = mapToTMDBLanguage(userLanguage)
+        
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "include_adult", value: "false"),
             URLQueryItem(name: "include_video", value: "false"),
-            URLQueryItem(name: "language", value: "en-US"),
+            URLQueryItem(name: "language", value: tmdbLanguage),
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "sort_by", value: "popularity.desc"),
+        ]
+        components.queryItems = (components.queryItems ?? []) + queryItems
+        
+        guard let finalURL = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        var request = URLRequest(url: finalURL)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = [
+            "accept": "application/json",
+            "Authorization": "Bearer \(apiKey)"
+        ]
+        
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        guard (200..<300).contains(httpResponse.statusCode) else {
+            let errorData = String(data: data, encoding: .utf8) ?? "No data"
+            throw APIError.serverError(statusCode: httpResponse.statusCode, errorData)
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .deferredToDate
+        
+        do {
+            let result = try decoder.decode(MoviesOrTvsResponse.self, from: data)
+            return result
+        } catch {
+            throw APIError.decodingError(error)
+        }
+    }
+
+    
+    private func mapToTMDBLanguage(_ userLanguage: String) -> String {
+        switch userLanguage {
+        case "pt": return "pt-BR"
+        case "en": return "en-US"
+        case "fr": return "fr-FR"
+        default: return "en-US"
+        }
+    }
+
+    
+    func discoverTvs(page: Int) async throws -> MoviesOrTvsResponse {
+        try await ensureAPIKey()
+        
+        let base = URL(string: "\(baseURL)/discover/tv")!
+        var components = URLComponents(url: base, resolvingAgainstBaseURL: true)!
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "include_adult", value: "false"),
+            URLQueryItem(name: "include_null_first_air_dates", value: "false"),
+            URLQueryItem(name: "language", value: mapToTMDBLanguage(AppSettings.shared.selectedLanguage)),
             URLQueryItem(name: "page", value: String(page)),
             URLQueryItem(name: "sort_by", value: "popularity.desc"),
         ]
@@ -110,11 +175,12 @@ class TMDBAPIService {
         decoder.dateDecodingStrategy = .deferredToDate
         
         do {
-            let result = try decoder.decode(MoviesResponse.self, from: data)
+            let result = try decoder.decode(MoviesOrTvsResponse.self, from: data)
             return result
         } catch {
             throw APIError.decodingError(error)
         }
+        
     }
 }
 

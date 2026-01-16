@@ -36,7 +36,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 class AppSettings: ObservableObject {
     @AppStorage("app_language") var languageCode: String = "pt"
     @AppStorage("app_theme") var themeRaw: String = "system"
-    
+    static let shared = AppSettings()
     var language: AppLanguage {
         AppLanguage(rawValue: languageCode) ?? .pt
     }
@@ -51,5 +51,12 @@ class AppSettings: ObservableObject {
     
     func setTheme(_ theme: AppTheme) {
         themeRaw = theme.rawValue
+    }
+    
+    
+    @AppStorage("selectedLanguage") var selectedLanguage: String = "pt" {
+        didSet {
+            // Opcional: atualize Locale.current ou bundle para runtime change
+        }
     }
 }

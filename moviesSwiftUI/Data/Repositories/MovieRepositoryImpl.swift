@@ -13,14 +13,14 @@ actor MovieRepositoryImpl: MovieRepository{
         self.apiService = TMDBAPIService()
     }
     
-    func discoverMovies(page: Int) async throws -> MoviesResponse {
+    func discoverMovies(page: Int) async throws -> MoviesOrTvsResponse {
         let response = try await apiService.discoverMovies(page: page)
         totalPages = response.totalPages
         currentPage = page + 1
         return response
     }
     
-    func discoverMoviesNextPage() async throws -> MoviesResponse {
+    func discoverMoviesNextPage() async throws -> MoviesOrTvsResponse {
         guard currentPage <= totalPages else { throw MovieRepositoryError.noMorePages }
         return try await discoverMovies(page: currentPage)
     }

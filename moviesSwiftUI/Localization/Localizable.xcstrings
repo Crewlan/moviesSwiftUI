@@ -1,6 +1,22 @@
 {
   "sourceLanguage" : "pt-BR",
   "strings" : {
+    "" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
+    },
     "Buscando filmes recentes" : {
       "localizations" : {
         "en" : {
@@ -13,6 +29,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recherche de films récents"
+          }
+        }
+      }
+    },
+    "Buscando shows de tv recentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for recent TV shows"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je recherche des émissions de télévision récentes."
           }
         }
       }
@@ -65,29 +97,6 @@
         }
       }
     },
-    "Language" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Language"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Langue"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Idioma"
-          }
-        }
-      }
-    },
     "Nenhum filme encontrado" : {
       "localizations" : {
         "en" : {
@@ -100,6 +109,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun film trouvé"
+          }
+        }
+      }
+    },
+    "Nenhum programa de tv encontrado" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No TV programs found."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun programme télévisé trouvé."
           }
         }
       }
@@ -172,6 +197,18 @@
     },
     "onboarding_title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Movies App"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Films App"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -180,8 +217,30 @@
         }
       }
     },
+    "Shows de TV Recentes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent TV Shows"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Émissions de télévision récentes"
+          }
+        }
+      }
+    },
     "Theme" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",

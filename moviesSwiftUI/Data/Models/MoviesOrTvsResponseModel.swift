@@ -1,7 +1,7 @@
 import Foundation
 
-struct MoviesResponseModel: Codable{
-    let results: [MovieModel]
+struct MoviesOrTvResponseModel: Codable{
+    let results: [MovieOrTvModel]
     let page: Int
     let totalResults: Int
     let totalPages: Int

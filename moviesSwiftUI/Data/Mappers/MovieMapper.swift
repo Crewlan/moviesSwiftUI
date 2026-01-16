@@ -1,5 +1,5 @@
-extension Movie {
-    init(from tmdbMovie: Movie) {
+extension MovieOrTv {
+    init(from tmdbMovie: MovieOrTv) {
         self.id = tmdbMovie.id
         self.title = tmdbMovie.title
         self.overview = tmdbMovie.overview
@@ -13,6 +13,9 @@ extension Movie {
         self.popularity = tmdbMovie.popularity
         self.releaseDate = tmdbMovie.releaseDate
         self.video = tmdbMovie.video
+        self.originalName = tmdbMovie.originalName
+        self.firstAirDate = tmdbMovie.firstAirDate
+        self.name = tmdbMovie.name
     }
     
 }

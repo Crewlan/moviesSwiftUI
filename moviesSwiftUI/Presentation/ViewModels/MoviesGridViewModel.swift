@@ -4,7 +4,7 @@ import Combine
 
 @MainActor
 class MoviesGridViewModel: ObservableObject {
-    @Published var movies: [Movie] = []  
+    @Published var movies: [MovieOrTv] = []
     @Published var isLoading = false
     @Published var hasMoreData = true
     
@@ -24,22 +24,22 @@ class MoviesGridViewModel: ObservableObject {
         
         do {
             let response = try await repository.discoverMoviesNextPage()
-        
             
-            movies.append(contentsOf: response.results.map { Movie(from: $0) })
-        
+            
+            movies.append(contentsOf: response.results.map { MovieOrTv(from: $0) })
+            
             
             if response.results.isEmpty {
                 hasMoreData = false
-        
+                
             }
             currentPage += 1
         } catch {
-        
+            
         }
         
         isLoading = false
-     
+        
     }
-
+    
 }
